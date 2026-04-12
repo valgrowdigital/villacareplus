@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Intelligence Proposal — Villacare Plus</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0e1118;--ink-2:#3b3e4c;--ink-3:#6c7080;
+  --surface:#ffffff;--surface-2:#f8f7f4;--surface-3:#f0efe9;
+  --border:#e3e2da;
+  --navy:#1a2b5e;--navy-light:#eef1f9;
+  --gold:#b8962e;--gold-light:#f5edcf;
+  --red-bg:#fdf0ee;--red-ink:#bf3a2b;
+  --green-bg:#edf5f0;--green-ink:#1d7a43;
+  --amber-bg:#fef6e4;--amber-ink:#8a6000;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:800px;margin:0 auto;padding:0 24px 80px}
+
+/* HEADER */
+.header{background:var(--navy);color:white;padding:60px 40px 52px;overflow:hidden;position:relative}
+.header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.header::after{content:'';position:absolute;bottom:-50px;left:25%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.03)}
+.header-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+.header-eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
+.header h1{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(30px,5.5vw,46px);font-weight:400;line-height:1.12;color:#fff;margin-bottom:16px}
+.header h1 em{font-style:italic;color:#c9b87a}
+.header-sub{font-size:14px;color:rgba(255,255,255,.6);max-width:500px;line-height:1.75}
+.header-date{margin-top:32px;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.05em}
+
+/* SECTION */
+.section{margin-top:52px}
+.section-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+
+/* INTRO */
+.intro-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px}
+.intro-card p{color:var(--ink-2);font-size:15px;line-height:1.8;margin-bottom:14px}
+.intro-card p:last-child{margin-bottom:0}
+.intro-card strong{color:var(--ink);font-weight:600}
+
+/* KEYWORD TABLE */
+.kw-table{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.kw-head{display:grid;grid-template-columns:1fr 90px 90px 110px;padding:11px 22px;background:var(--surface-3);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--border)}
+.kw-row{display:grid;grid-template-columns:1fr 90px 90px 110px;padding:15px 22px;border-bottom:1px solid var(--border);align-items:center}
+.kw-row:last-child{border-bottom:none}
+.kw-name{font-weight:500;font-size:14px;color:var(--ink)}
+.kw-note{font-size:12px;color:var(--ink-3);margin-top:2px}
+.kw-vol{font-size:14px;font-weight:500;color:var(--ink-2)}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.badge-amber{background:var(--amber-bg);color:var(--amber-ink)}
+.badge-green{background:var(--green-bg);color:var(--green-ink)}
+.vc-absent{font-size:12px;color:var(--red-ink);font-weight:500}
+.small-note{font-size:12px;color:var(--ink-3);margin-top:10px;text-align:right}
+
+/* PROBLEMS */
+.problems{display:flex;flex-direction:column;gap:10px}
+.problem-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
+.prob-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.prob-icon.red{background:var(--red-bg)}
+.prob-icon.amber{background:var(--amber-bg)}
+.prob-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
+.prob-desc{font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* OPPORTUNITY */
+.opportunity{background:linear-gradient(135deg,#eef2ff 0%,#f1f4ff 100%);border:1px solid #c6d0ef;border-radius:14px;padding:30px 34px}
+.opportunity h3{font-family:'Instrument Serif',serif;font-size:23px;font-weight:400;color:var(--navy);margin-bottom:10px}
+.opportunity p{font-size:14px;color:#3a4a72;line-height:1.78}
+.opp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+@media(max-width:520px){.opp-stats{grid-template-columns:1fr}}
+.opp-stat{background:white;border-radius:9px;padding:16px;text-align:center;border:1px solid #d0d9f0}
+.opp-stat-val{font-family:'Instrument Serif',serif;font-size:27px;color:var(--navy);line-height:1}
+.opp-stat-label{font-size:12px;color:#5060a0;margin-top:5px;line-height:1.45}
+
+/* ACHIEVE */
+.achieve-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:580px){.achieve-grid{grid-template-columns:1fr}}
+.achieve-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 22px 24px}
+.achieve-card.highlight{border-color:#c5d0f0;background:var(--navy-light)}
+.achieve-icon{font-size:22px;margin-bottom:12px}
+.achieve-title{font-weight:600;font-size:15px;color:var(--ink);margin-bottom:7px}
+.achieve-card.highlight .achieve-title{color:var(--navy)}
+.achieve-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
+
+/* WHAT WE DO */
+.service-blocks{display:flex;flex-direction:column}
+.svc-row{display:flex;gap:18px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--border)}
+.svc-row:last-child{border-bottom:none}
+.svc-num{width:30px;height:30px;border-radius:50%;background:var(--navy);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.svc-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:5px}
+.svc-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.svc-tag{display:inline-block;background:var(--surface-3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--ink-3);padding:3px 10px}
+
+/* PACKAGES */
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:640px){.packages{grid-template-columns:1fr}}
+.pkg{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:26px 20px;position:relative;display:flex;flex-direction:column}
+.pkg.featured{border:2px solid var(--navy)}
+.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 13px;border-radius:20px;white-space:nowrap}
+.pkg-name{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.pkg-price{font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink);line-height:1;margin-bottom:2px}
+.pkg-price span{font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink-3)}
+.pkg-tagline{font-size:12px;color:var(--ink-3);margin-bottom:20px;margin-top:7px;line-height:1.55}
+.pkg-divider{border:none;border-top:1px solid var(--border);margin-bottom:14px}
+.pkg-section-head{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:14px 0 6px}
+.pkg-features{list-style:none}
+.pkg-features li{font-size:12.5px;color:var(--ink-2);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.4;border-bottom:1px solid var(--surface-3)}
+.pkg-features li:last-child{border-bottom:none}
+.pkg-features li::before{content:'✓';color:var(--green-ink);font-weight:700;font-size:11px;flex-shrink:0;margin-top:2px}
+.pkg-features li.na{color:#c0c0b8}
+.pkg-features li.na::before{content:'—';color:#d0d0c8}
+
+/* WHY VALGROW */
+.about-row{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:10px}
+.about-icon{width:36px;height:36px;border-radius:8px;background:var(--navy-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.about-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
+.about-desc{font-size:13px;color:var(--ink-2);line-height:1.6}
+
+/* CTA */
+.cta-box{background:var(--navy);border-radius:16px;padding:48px 40px;text-align:center;color:white;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04)}
+.cta-box h2{font-family:'Instrument Serif',serif;font-size:30px;font-weight:400;color:white;margin-bottom:12px;position:relative}
+.cta-box p{font-size:14px;color:rgba(255,255,255,.6);max-width:420px;margin:0 auto 30px;line-height:1.75;position:relative}
+.cta-btn{display:inline-block;background:#c9b87a;color:#1a2b3e;font-weight:600;font-size:14px;padding:15px 38px;border-radius:9px;text-decoration:none;letter-spacing:.02em;position:relative;transition:background .2s,transform .1s}
+.cta-btn:hover{background:#d4c48a;transform:translateY(-1px)}
+.cta-sub{margin-top:16px;font-size:12px;color:rgba(255,255,255,.3);position:relative}
+
+/* FOOTER */
+.footer{margin-top:48px;text-align:center;font-size:12px;color:var(--ink-3);padding-top:24px;border-top:1px solid var(--border)}
+.footer strong{color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Prepared by ValGrow Labs · Search Intelligence · Dubai</div>
+    <h1>Your customers are searching.<br><em>They just can't find you yet.</em></h1>
+    <p class="header-sub">A personalised proposal for Villacare Plus — showing where you stand today, what's holding you back, and exactly how we fix it.</p>
+    <div class="header-date">April 2026 · Confidential</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="section">
+    <div class="intro-card">
+      <p>Villacare Plus has everything it needs to win — <strong>5.0 stars, 62 Google reviews, great services, and a growing brand</strong>. The gap is simple: when villa owners in Dubai search for what you offer, you don't appear. They find a competitor instead.</p>
+      <p>We checked five searches your customers make every month. <strong>Villacare Plus did not appear in a single one.</strong> That's not a reflection of your business quality — it's a visibility problem, and it's exactly what we solve.</p>
+    </div>
+  </div>
+
+  <!-- KEYWORD EVIDENCE -->
+  <div class="section">
+    <div class="section-label">Live search check — 5 keywords your customers use right now</div>
+    <div class="kw-table">
+      <div class="kw-head">
+        <span>What they search</span>
+        <span>Monthly searches</span>
+        <span>Competition</span>
+        <span>Villacare Plus</span>
+      </div>
+      <div class="kw-row">
+        <div><div class="kw-name">villa maintenance Dubai</div><div class="kw-note">Core service — highest intent</div></div>
+        <div class="kw-vol">~1,200</div>
+        <div><span class="badge badge-amber">Medium</span></div>
+        <div class="vc-absent">✗ Not found</div>
+      </div>
+      <div class="kw-row">
+        <div><div class="kw-name">AC maintenance Dubai villa</div><div class="kw-note">Seasonal demand, page exists on site</div></div>
+        <div class="kw-vol">~880</div>
+        <div><span class="badge badge-amber">Medium</span></div>
+        <div class="vc-absent">✗ Not found</div>
+      </div>
+      <div class="kw-row">
+        <div><div class="kw-name">pergola installation Dubai</div><div class="kw-note">High-value upgrade — low competition</div></div>
+        <div class="kw-vol">~590</div>
+        <div><span class="badge badge-green">Low</span></div>
+        <div class="vc-absent">✗ Not found</div>
+      </div>
+      <div class="kw-row">
+        <div><div class="kw-name">annual villa maintenance contract UAE</div><div class="kw-note">Ready-to-sign buyer — low competition</div></div>
+        <div class="kw-vol">~320</div>
+        <div><span class="badge badge-green">Low</span></div>
+        <div class="vc-absent">✗ Not found</div>
+      </div>
+      <div class="kw-row">
+        <div><div class="kw-name">smart home installation Dubai villa</div><div class="kw-note">Premium NEST &amp; automation upsell</div></div>
+        <div class="kw-vol">~480</div>
+        <div><span class="badge badge-amber">Medium</span></div>
+        <div class="vc-absent">✗ Not found</div>
+      </div>
+    </div>
+    <p class="small-note">Results verified via live Google search, April 2026. Monthly volumes are estimated averages.</p>
+  </div>
+
+  <!-- PROBLEMS -->
+  <div class="section">
+    <div class="section-label">Why you're not showing up — what we found</div>
+    <div class="problems">
+      <div class="problem-card">
+        <div class="prob-icon red">🔍</div>
+        <div>
+          <div class="prob-title">No content for Google to rank</div>
+          <div class="prob-desc">Google ranks pages that answer what people are searching for. There are no blog posts, guides, or FAQ pages on your site. Competitors like GeeM Home and We Will Fix It publish content regularly — that's why they appear and Villacare Plus doesn't.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon red">📄</div>
+        <div>
+          <div class="prob-title">Service pages aren't optimised for any keyword</div>
+          <div class="prob-desc">Your homepage title is simply "Home – Villacare Plus." No Dubai, no villas, no maintenance. Each service page needs to be written and structured around the exact words customers type — so Google knows to show it.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon red">🔗</div>
+        <div>
+          <div class="prob-title">Three service pages are broken</div>
+          <div class="prob-desc">Pergola, LVT Flooring, and Electrical pages link to "#" — they go nowhere. Google cannot rank a page that doesn't properly exist, no matter how strong your actual service is.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon amber">🌐</div>
+        <div>
+          <div class="prob-title">No backlinks — Google doesn't fully trust your site yet</div>
+          <div class="prob-desc">Backlinks are other websites linking to yours — Google's main signal of credibility. Without them, even a well-optimised page struggles to rank. Your competitors have links from UAE property directories, home blogs, and media. You have none yet.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon amber">⭐</div>
+        <div>
+          <div class="prob-title">62 five-star reviews that Google can't display</div>
+          <div class="prob-desc">Without review schema markup, your star rating doesn't appear in search results. Competitors with fewer reviews are showing theirs — and getting more clicks because of it. A quick technical fix changes this.</div>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon amber">🤖</div>
+        <div>
+          <div class="prob-title">Invisible to AI — ChatGPT and Google AI don't know you exist</div>
+          <div class="prob-desc">When someone asks ChatGPT "best villa maintenance company in Dubai," it recommends brands it has learned about from articles and citations online. Villacare Plus has none of that yet — so AI doesn't recommend you. This is the fastest-growing way people find services in 2026.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPPORTUNITY -->
+  <div class="section">
+    <div class="opportunity">
+      <h3>The market is ready — you just need to be visible in it.</h3>
+      <p>Dubai villa handovers in Q1 2026 hit their highest level since 2021 — up 27% year-on-year. Thousands of new villa owners in Arabian Ranches, DAMAC Lagoons, Emaar communities, and The Valley are actively searching for exactly what Villacare Plus offers. The demand is there. Right now, competitors are capturing it.</p>
+      <div class="opp-stats">
+        <div class="opp-stat">
+          <div class="opp-stat-val">18,000+</div>
+          <div class="opp-stat-label">New villa handovers in Dubai, Q1 2026 alone</div>
+        </div>
+        <div class="opp-stat">
+          <div class="opp-stat-val">3,470</div>
+          <div class="opp-stat-label">Monthly searches across your 5 core keywords</div>
+        </div>
+        <div class="opp-stat">
+          <div class="opp-stat-val">0</div>
+          <div class="opp-stat-label">Times Villacare Plus appeared in those searches</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT YOU WILL ACHIEVE -->
+  <div class="section">
+    <div class="section-label">What you'll achieve with ValGrow</div>
+    <div class="achieve-grid">
+      <div class="achieve-card highlight">
+        <div class="achieve-icon">📞</div>
+        <div class="achieve-title">More inbound leads — without paying per click</div>
+        <div class="achieve-desc">When your pages rank on Google, people call you directly. No ad spend per enquiry. Every article and optimised page keeps working 24/7, bringing leads long after it's published.</div>
+      </div>
+      <div class="achieve-card highlight">
+        <div class="achieve-icon">🏆</div>
+        <div class="achieve-title">Rank above competitors in Dubai</div>
+        <div class="achieve-desc">GeeM Home, We Will Fix It, Octopus — they rank because they have content and backlinks. We build both for you, systematically, until Villacare Plus sits above them for the searches that matter.</div>
+      </div>
+      <div class="achieve-card highlight">
+        <div class="achieve-icon">🤖</div>
+        <div class="achieve-title">Get recommended by ChatGPT &amp; Google AI</div>
+        <div class="achieve-desc">AI search is how more people find services in 2026. We structure your content so that when someone asks an AI for villa maintenance in Dubai, Villacare Plus is the name that comes up.</div>
+      </div>
+      <div class="achieve-card highlight">
+        <div class="achieve-icon">📍</div>
+        <div class="achieve-title">Own your local villa communities</div>
+        <div class="achieve-desc">We build pages targeting Arabian Ranches, DAMAC Lagoons, The Valley, and other key areas. When homeowners in those communities search, they find Villacare Plus — not a generic competitor.</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">⭐</div>
+        <div class="achieve-title">Your 5-star rating visible in search results</div>
+        <div class="achieve-desc">We add the technical markup that makes Google display your stars directly in search results — more visibility, more trust, more clicks from reviews you've already earned.</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">📈</div>
+        <div class="achieve-title">Results that grow every month</div>
+        <div class="achieve-desc">Unlike ads that stop when you stop paying, SEO compounds. Every article, backlink, and optimised page adds to a growing asset that keeps delivering leads month after month.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT WE DO -->
+  <div class="section">
+    <div class="section-label">Exactly what we do for you</div>
+    <div class="service-blocks">
+      <div class="svc-row">
+        <div class="svc-num">1</div>
+        <div>
+          <div class="svc-title">Fix all technical SEO issues on your site</div>
+          <div class="svc-desc">We audit every page, repair broken links, complete the three missing service pages (Pergola, LVT, Electrical), rewrite your title tags and meta descriptions with the right keywords, add review schema so your stars show in Google results, and submit your sitemap. This is the foundation — it happens in week one.</div>
+          <div class="svc-tags"><span class="svc-tag">Broken page fix</span><span class="svc-tag">Title &amp; meta tags</span><span class="svc-tag">Review schema</span><span class="svc-tag">Sitemap &amp; indexing</span><span class="svc-tag">Site speed check</span></div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-num">2</div>
+        <div>
+          <div class="svc-title">Optimise every service page for target keywords</div>
+          <div class="svc-desc">Each of your 8 service pages gets rewritten and structured around the exact keywords customers search. AC Maintenance, Pergola, AMC Contracts, Smart Home, Landscaping — each becomes a dedicated landing page built to rank and convert visitors into enquiries.</div>
+          <div class="svc-tags"><span class="svc-tag">8 service pages</span><span class="svc-tag">Keyword mapping</span><span class="svc-tag">Heading structure</span><span class="svc-tag">Internal linking</span><span class="svc-tag">Call-to-action copy</span></div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-num">3</div>
+        <div>
+          <div class="svc-title">Build content that ranks and brings in leads</div>
+          <div class="svc-desc">We write helpful, search-optimised articles and FAQ pages — "how often should I service my villa AC in Dubai," "pergola cost Dubai 2026," "what's included in a villa AMC contract." These rank on Google, position you as the trusted expert, and keep delivering traffic month after month.</div>
+          <div class="svc-tags"><span class="svc-tag">Blog articles</span><span class="svc-tag">FAQ pages</span><span class="svc-tag">Community pages</span><span class="svc-tag">AI citation content</span></div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-num">4</div>
+        <div>
+          <div class="svc-title">Backlink outreach — build Google's trust in your site</div>
+          <div class="svc-desc">We reach out to UAE property blogs, home lifestyle sites, local directories, and relevant publications to earn quality links pointing to your site. Each backlink signals to Google that your site is credible — and pushes your pages higher in rankings. This is what your competitors have that you currently don't.</div>
+          <div class="svc-tags"><span class="svc-tag">UAE directory listings</span><span class="svc-tag">Property blog outreach</span><span class="svc-tag">Local citation building</span><span class="svc-tag">Authority signals</span></div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-num">5</div>
+        <div>
+          <div class="svc-title">Get cited by ChatGPT, Google AI &amp; Perplexity</div>
+          <div class="svc-desc">We structure your content and build your digital presence so that when someone asks an AI assistant for a villa maintenance company in Dubai, Villacare Plus is the answer they get — not a competitor.</div>
+          <div class="svc-tags"><span class="svc-tag">Entity optimisation</span><span class="svc-tag">Knowledge graph</span><span class="svc-tag">AI citation pages</span><span class="svc-tag">Schema markup</span></div>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-num">6</div>
+        <div>
+          <div class="svc-title">Clear reporting — plain English, no jargon</div>
+          <div class="svc-desc">You receive a simple report every month showing which keywords you're ranking for, how many people visited your site from Google, where you appear in AI search, and what was done. You always know exactly what's happening and what it's delivering.</div>
+          <div class="svc-tags"><span class="svc-tag">Keyword rankings</span><span class="svc-tag">Traffic report</span><span class="svc-tag">AI visibility tracking</span><span class="svc-tag">Competitor comparison</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKAGES -->
+  <div class="section">
+    <div class="section-label">Choose your plan</div>
+    <div class="packages">
+
+      <div class="pkg">
+        <div class="pkg-name">Vector Starter</div>
+        <div class="pkg-price">AED 1,800 <span>/ mo</span></div>
+        <div class="pkg-tagline">Fix the foundation and start appearing in Google and AI search.</div>
+        <hr class="pkg-divider">
+        <div class="pkg-section-head">Technical SEO</div>
+        <ul class="pkg-features">
+          <li>Full technical audit &amp; all fixes</li>
+          <li>Broken pages repaired</li>
+          <li>Title, meta &amp; heading optimisation</li>
+          <li>Review schema — stars in Google</li>
+          <li>Sitemap &amp; indexing setup</li>
+        </ul>
+        <div class="pkg-section-head">Service Pages</div>
+        <ul class="pkg-features">
+          <li>5 service pages keyword-optimised</li>
+          <li>5 target keywords</li>
+        </ul>
+        <div class="pkg-section-head">Content</div>
+        <ul class="pkg-features">
+          <li>2 blog articles / month</li>
+          <li>1 FAQ citation page / month</li>
+        </ul>
+        <div class="pkg-section-head">Backlinks</div>
+        <ul class="pkg-features">
+          <li>Local directory submissions</li>
+          <li class="na">Active backlink outreach</li>
+        </ul>
+        <div class="pkg-section-head">AI Search</div>
+        <ul class="pkg-features">
+          <li>ChatGPT &amp; Google AI tracking</li>
+          <li>Knowledge graph entry</li>
+          <li class="na">Perplexity / Gemini</li>
+        </ul>
+        <div class="pkg-section-head">Reporting</div>
+        <ul class="pkg-features">
+          <li>Monthly visibility report</li>
+          <li class="na">Competitor tracking</li>
+        </ul>
+      </div>
+
+      <div class="pkg featured">
+        <div class="pkg-badge">Recommended</div>
+        <div class="pkg-name">Vector Growth</div>
+        <div class="pkg-price">AED 3,500 <span>/ mo</span></div>
+        <div class="pkg-tagline">Rank above competitors, earn backlinks, and appear in all major AI platforms.</div>
+        <hr class="pkg-divider">
+        <div class="pkg-section-head">Technical SEO</div>
+        <ul class="pkg-features">
+          <li>Full technical audit &amp; all fixes</li>
+          <li>Broken pages repaired</li>
+          <li>Title, meta &amp; heading optimisation</li>
+          <li>Review schema — stars in Google</li>
+          <li>Ongoing quarterly audit</li>
+        </ul>
+        <div class="pkg-section-head">Service Pages</div>
+        <ul class="pkg-features">
+          <li>All 8 service pages optimised</li>
+          <li>15 target keywords</li>
+          <li>Community landing pages</li>
+        </ul>
+        <div class="pkg-section-head">Content</div>
+        <ul class="pkg-features">
+          <li>5 blog articles / month</li>
+          <li>3 FAQ citation pages / month</li>
+        </ul>
+        <div class="pkg-section-head">Backlinks</div>
+        <ul class="pkg-features">
+          <li>Local directory submissions</li>
+          <li>Active outreach — 5 links / month</li>
+          <li>UAE property &amp; home blogs</li>
+        </ul>
+        <div class="pkg-section-head">AI Search</div>
+        <ul class="pkg-features">
+          <li>ChatGPT, Google AI &amp; Perplexity</li>
+          <li>Knowledge graph + cleanup</li>
+          <li>Entity &amp; citation optimisation</li>
+          <li class="na">Gemini / Claude tracking</li>
+        </ul>
+        <div class="pkg-section-head">Reporting</div>
+        <ul class="pkg-features">
+          <li>Bi-weekly visibility report</li>
+          <li>1 competitor tracked</li>
+          <li>Priority WhatsApp support</li>
+        </ul>
+      </div>
+
+      <div class="pkg">
+        <div class="pkg-name">Vector Pro</div>
+        <div class="pkg-price">AED 6,500 <span>/ mo</span></div>
+        <div class="pkg-tagline">Full dominance — Google, all AI platforms, authority &amp; digital PR.</div>
+        <hr class="pkg-divider">
+        <div class="pkg-section-head">Technical SEO</div>
+        <ul class="pkg-features">
+          <li>Full technical audit &amp; all fixes</li>
+          <li>Broken pages repaired</li>
+          <li>Title, meta &amp; heading optimisation</li>
+          <li>Review schema — stars in Google</li>
+          <li>Ongoing monthly audit</li>
+        </ul>
+        <div class="pkg-section-head">Service Pages</div>
+        <ul class="pkg-features">
+          <li>All 8 service pages optimised</li>
+          <li>30 target keywords</li>
+          <li>Community landing pages</li>
+        </ul>
+        <div class="pkg-section-head">Content</div>
+        <ul class="pkg-features">
+          <li>10 blog articles / month</li>
+          <li>5 FAQ citation pages / month</li>
+        </ul>
+        <div class="pkg-section-head">Backlinks</div>
+        <ul class="pkg-features">
+          <li>Local directory submissions</li>
+          <li>Active outreach — 15 links / month</li>
+          <li>Third-party citation network</li>
+          <li>Digital PR &amp; earned media</li>
+        </ul>
+        <div class="pkg-section-head">AI Search</div>
+        <ul class="pkg-features">
+          <li>All platforms incl. Gemini &amp; Claude</li>
+          <li>Full entity management</li>
+          <li>Off-site authority signals</li>
+          <li>Community entity reinforcement</li>
+        </ul>
+        <div class="pkg-section-head">Reporting</div>
+        <ul class="pkg-features">
+          <li>Weekly visibility report</li>
+          <li>3 competitors tracked</li>
+          <li>Dedicated account manager</li>
+          <li>Monthly strategy call</li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="font-size:12px;color:var(--ink-3);margin-top:14px;text-align:center;">All plans billed monthly · Annual billing saves 20% · No lock-in on Starter plan</p>
+  </div>
+
+  <!-- WHY VALGROW -->
+  <div class="section">
+    <div class="section-label">Why ValGrow</div>
+    <div class="about-row">
+      <div class="about-icon">🎯</div>
+      <div>
+        <div class="about-title">We proved it on ourselves first</div>
+        <div class="about-desc">We ran our own Vector Protocol on a competitive search term and hit #2 on Google in 10 days — with 100% citation rate across ChatGPT, Perplexity, Claude, Grok, DeepSeek, and Manus AI. Same system, your business.</div>
+      </div>
+    </div>
+    <div class="about-row">
+      <div class="about-icon">🇦🇪</div>
+      <div>
+        <div class="about-title">Built for the Dubai market</div>
+        <div class="about-desc">We understand how villa owners in Dubai search, which communities are growing fastest, and what it takes to rank in the UAE. This is not a generic approach — every strategy is specific to your location and your customers.</div>
+      </div>
+    </div>
+    <div class="about-row">
+      <div class="about-icon">📊</div>
+      <div>
+        <div class="about-title">Simple reporting — you always know what's happening</div>
+        <div class="about-desc">No jargon, no dashboards to decode. Every report shows clearly what keywords you're ranking for, how many people found you from Google, and where you appear in AI search. If something needs adjusting, you hear it from us first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="section">
+    <div class="cta-box">
+      <h2>Let's talk about Villacare Plus.</h2>
+      <p>Book a short call and we'll walk you through exactly what we'd do in the first 30 days — which keywords to target first, what to fix, and what to expect. No commitment needed.</p>
+      <a href="https://wa.me/971552848110?text=Hi%2C%20I%27d%20like%20to%20book%20a%20meeting%20about%20the%20Villacare%20Plus%20Search%20Intelligence%20proposal" class="cta-btn">Book a Meeting →</a>
+      <div class="cta-sub">WhatsApp · +971 55 284 8110 · ValGrow Labs, Dubai</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>ValGrow Labs</strong> · Search Intelligence · Dubai, UAE<br>
+    valgrowlabs.com · +971 55 284 8110
+  </div>
+
+</div>
+</body>
+</html>
