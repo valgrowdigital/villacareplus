@@ -3,450 +3,511 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Intelligence Proposal — Villacare Plus</title>
+<title>Revised Proposal — Villacare Plus</title>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0e1118;--ink-2:#3b3e4c;--ink-3:#6c7080;
-  --surface:#ffffff;--surface-2:#f8f7f4;--surface-3:#f0efe9;
+  --surface:#fff;--surface-2:#f8f7f4;--surface-3:#f0efe9;
   --border:#e3e2da;
   --navy:#1a2b5e;--navy-light:#eef1f9;
-  --gold:#b8962e;--gold-light:#f5edcf;
-  --red-bg:#fdf0ee;--red-ink:#bf3a2b;
-  --green-bg:#edf5f0;--green-ink:#1d7a43;
-  --amber-bg:#fef6e4;--amber-ink:#8a6000;
+  --red:#c0392b;--red-bg:#fdf0ee;--red-border:#f5c8c3;
+  --amber:#8a6000;--amber-bg:#fef6e4;--amber-border:#f0d88a;
+  --green:#1d7a43;--green-bg:#edf5f0;--green-border:#a8dfc0;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--surface-2);color:var(--ink);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
 .wrap{max-width:800px;margin:0 auto;padding:0 24px 80px}
 
-/* HEADER */
-.header{background:var(--navy);color:white;padding:60px 40px 52px;overflow:hidden;position:relative}
+.header{background:var(--navy);padding:56px 40px 50px;position:relative;overflow:hidden}
 .header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
-.header::after{content:'';position:absolute;bottom:-50px;left:25%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.03)}
-.header-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
-.header-eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
-.header h1{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(30px,5.5vw,46px);font-weight:400;line-height:1.12;color:#fff;margin-bottom:16px}
+.header::after{content:'';position:absolute;bottom:-60px;left:20%;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.03)}
+.h-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+.h-eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px}
+.header h1{font-family:'Instrument Serif',serif;font-size:clamp(28px,5vw,44px);font-weight:400;line-height:1.12;color:#fff;margin-bottom:14px}
 .header h1 em{font-style:italic;color:#c9b87a}
-.header-sub{font-size:14px;color:rgba(255,255,255,.6);max-width:500px;line-height:1.75}
-.header-date{margin-top:32px;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.05em}
+.h-sub{font-size:14px;color:rgba(255,255,255,.58);max-width:520px;line-height:1.78}
+.h-date{margin-top:28px;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.05em}
 
-/* SECTION */
 .section{margin-top:52px}
-.section-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.slabel{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 
-/* INTRO */
-.intro-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px}
-.intro-card p{color:var(--ink-2);font-size:15px;line-height:1.8;margin-bottom:14px}
-.intro-card p:last-child{margin-bottom:0}
-.intro-card strong{color:var(--ink);font-weight:600}
+/* SCORE CARDS */
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:500px){.score-grid{grid-template-columns:1fr}}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;text-align:center}
+.sc.after{border-color:var(--green-border);background:var(--green-bg)}
+.sc-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.sc-val{font-family:'Instrument Serif',serif;font-size:38px;line-height:1}
+.sc-val.weak{color:var(--red)}
+.sc-val.poor{color:#c05a00}
+.sc-val.good{color:var(--green)}
+.sc-sub{font-size:12px;color:var(--ink-3);margin-top:5px;line-height:1.4}
+.score-arrow{text-align:center;padding:10px 0}
+.score-arrow span{display:inline-block;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px}
 
-/* KEYWORD TABLE */
-.kw-table{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.kw-head{display:grid;grid-template-columns:1fr 90px 90px 110px;padding:11px 22px;background:var(--surface-3);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--border)}
-.kw-row{display:grid;grid-template-columns:1fr 90px 90px 110px;padding:15px 22px;border-bottom:1px solid var(--border);align-items:center}
-.kw-row:last-child{border-bottom:none}
-.kw-name{font-weight:500;font-size:14px;color:var(--ink)}
-.kw-note{font-size:12px;color:var(--ink-3);margin-top:2px}
-.kw-vol{font-size:14px;font-weight:500;color:var(--ink-2)}
-.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
-.badge-amber{background:var(--amber-bg);color:var(--amber-ink)}
-.badge-green{background:var(--green-bg);color:var(--green-ink)}
-.vc-absent{font-size:12px;color:var(--red-ink);font-weight:500}
-.small-note{font-size:12px;color:var(--ink-3);margin-top:10px;text-align:right}
+/* GAP TABLES */
+.gap-block{margin-bottom:30px}
+.gap-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.gap-title{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--ink)}
+.crit-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.gt{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.gt-head{display:grid;grid-template-columns:1.6fr .8fr .7fr 1.5fr;padding:10px 18px;background:var(--surface-3);border-bottom:1px solid var(--border);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.gt-row{display:grid;grid-template-columns:1.6fr .8fr .7fr 1.5fr;padding:13px 18px;border-bottom:1px solid var(--border);align-items:start;font-size:13px}
+.gt-row:last-child{border-bottom:none}
+.gt-row:hover{background:var(--surface-2)}
+.gt-area{font-weight:500;color:var(--ink);line-height:1.4;padding-right:8px}
+.gt-impact{font-size:12px;color:var(--ink-3);line-height:1.4;padding-right:8px}
+.gt-fix{font-size:12px;color:var(--ink-2);line-height:1.5}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;line-height:1.3;white-space:nowrap}
+.pr{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.pa{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.pg{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+@media(max-width:600px){
+  .gt-head,.gt-row{grid-template-columns:1fr 1fr}
+  .gt-head>*:nth-child(3),.gt-head>*:nth-child(4),.gt-row>*:nth-child(3),.gt-row>*:nth-child(4){display:none}
+}
 
-/* PROBLEMS */
-.problems{display:flex;flex-direction:column;gap:10px}
-.problem-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:flex;gap:16px;align-items:flex-start}
-.prob-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.prob-icon.red{background:var(--red-bg)}
-.prob-icon.amber{background:var(--amber-bg)}
-.prob-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
-.prob-desc{font-size:13px;color:var(--ink-2);line-height:1.6}
-
-/* OPPORTUNITY */
-.opportunity{background:linear-gradient(135deg,#eef2ff 0%,#f1f4ff 100%);border:1px solid #c6d0ef;border-radius:14px;padding:30px 34px}
-.opportunity h3{font-family:'Instrument Serif',serif;font-size:23px;font-weight:400;color:var(--navy);margin-bottom:10px}
-.opportunity p{font-size:14px;color:#3a4a72;line-height:1.78}
-.opp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
-@media(max-width:520px){.opp-stats{grid-template-columns:1fr}}
-.opp-stat{background:white;border-radius:9px;padding:16px;text-align:center;border:1px solid #d0d9f0}
-.opp-stat-val{font-family:'Instrument Serif',serif;font-size:27px;color:var(--navy);line-height:1}
-.opp-stat-label{font-size:12px;color:#5060a0;margin-top:5px;line-height:1.45}
-
-/* ACHIEVE */
-.achieve-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:580px){.achieve-grid{grid-template-columns:1fr}}
-.achieve-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 22px 24px}
-.achieve-card.highlight{border-color:#c5d0f0;background:var(--navy-light)}
-.achieve-icon{font-size:22px;margin-bottom:12px}
-.achieve-title{font-weight:600;font-size:15px;color:var(--ink);margin-bottom:7px}
-.achieve-card.highlight .achieve-title{color:var(--navy)}
-.achieve-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
-
-/* WHAT WE DO */
-.service-blocks{display:flex;flex-direction:column}
-.svc-row{display:flex;gap:18px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--border)}
-.svc-row:last-child{border-bottom:none}
-.svc-num{width:30px;height:30px;border-radius:50%;background:var(--navy);color:white;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.svc-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:5px}
-.svc-desc{font-size:13px;color:var(--ink-2);line-height:1.65}
-.svc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.svc-tag{display:inline-block;background:var(--surface-3);border:1px solid var(--border);border-radius:20px;font-size:11px;color:var(--ink-3);padding:3px 10px}
+/* TIMELINE */
+.tl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:540px){.tl-grid{grid-template-columns:1fr}}
+.tl-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px}
+.tl-pill{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.tl-pill.d30{background:#fff3e0;color:#b35c00;border:1px solid #fdd09a}
+.tl-pill.d60{background:var(--navy-light);color:var(--navy);border:1px solid #c5d0f0}
+.tl-pill.d90{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.tl-title{font-family:'Instrument Serif',serif;font-size:17px;font-weight:400;color:var(--ink);margin-bottom:10px;line-height:1.3}
+.tl-list{list-style:none}
+.tl-list li{font-size:12.5px;color:var(--ink-2);padding:5px 0;border-bottom:1px solid var(--surface-3);display:flex;gap:7px;align-items:flex-start;line-height:1.4}
+.tl-list li:last-child{border-bottom:none}
+.tl-list li::before{content:'→';color:var(--ink-3);font-size:11px;flex-shrink:0;margin-top:2px}
+.tl-outcome{margin-top:12px;font-size:12px;color:var(--green);font-weight:500;background:var(--green-bg);border:1px solid var(--green-border);border-radius:6px;padding:7px 10px;line-height:1.4}
 
 /* PACKAGES */
-.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:640px){.packages{grid-template-columns:1fr}}
-.pkg{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:26px 20px;position:relative;display:flex;flex-direction:column}
-.pkg.featured{border:2px solid var(--navy)}
-.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 13px;border-radius:20px;white-space:nowrap}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:640px){.pkgs{grid-template-columns:1fr}}
+.pkg{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:24px 20px;position:relative;display:flex;flex-direction:column}
+.pkg.feat{border:2px solid var(--navy)}
+.pkg-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 13px;border-radius:20px;white-space:nowrap}
 .pkg-name{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
 .pkg-price{font-family:'Instrument Serif',serif;font-size:32px;color:var(--ink);line-height:1;margin-bottom:2px}
-.pkg-price span{font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink-3)}
-.pkg-tagline{font-size:12px;color:var(--ink-3);margin-bottom:20px;margin-top:7px;line-height:1.55}
-.pkg-divider{border:none;border-top:1px solid var(--border);margin-bottom:14px}
-.pkg-section-head{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:14px 0 6px}
-.pkg-features{list-style:none}
-.pkg-features li{font-size:12.5px;color:var(--ink-2);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.4;border-bottom:1px solid var(--surface-3)}
-.pkg-features li:last-child{border-bottom:none}
-.pkg-features li::before{content:'✓';color:var(--green-ink);font-weight:700;font-size:11px;flex-shrink:0;margin-top:2px}
-.pkg-features li.na{color:#c0c0b8}
-.pkg-features li.na::before{content:'—';color:#d0d0c8}
+.pkg.feat .pkg-price{color:var(--navy)}
+.pkg-price span{font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink-3);font-weight:400}
+.pkg-tag{font-size:12px;color:var(--ink-3);margin-bottom:14px;margin-top:6px;line-height:1.5}
+.pkg-scores{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.pkg-sc{font-size:11px;font-weight:600;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);border-radius:6px;padding:3px 8px}
+.pkg-divider{border:none;border-top:1px solid var(--border);margin-bottom:12px}
+.pkg-sh{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:12px 0 5px}
+.pf{list-style:none;flex:1}
+.pf li{font-size:12px;color:var(--ink-2);padding:5px 0;display:flex;gap:7px;align-items:flex-start;line-height:1.4;border-bottom:1px solid var(--surface-3)}
+.pf li:last-child{border-bottom:none}
+.pf li::before{content:'✓';color:var(--green);font-weight:700;font-size:11px;flex-shrink:0;margin-top:1px}
+.pf li.na{color:#c0c0b8}
+.pf li.na::before{content:'—';color:#d8d8d0}
 
-/* WHY VALGROW */
-.about-row{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:10px}
-.about-icon{width:36px;height:36px;border-radius:8px;background:var(--navy-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.about-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
-.about-desc{font-size:13px;color:var(--ink-2);line-height:1.6}
+/* COVERAGE */
+.coverage{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:18px}
+.cv-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:10px 20px;background:var(--surface-3);border-bottom:1px solid var(--border);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);text-align:center}
+.cv-head>:first-child{text-align:left}
+.cv-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:11px 20px;border-bottom:1px solid var(--border);align-items:center;font-size:13px}
+.cv-row:last-child{border-bottom:none}
+.cv-row:hover{background:var(--surface-2)}
+.cv-gap{font-weight:500;color:var(--ink);font-size:13px}
+.cv-cell{text-align:center}
+.tick{color:var(--green);font-size:14px;font-weight:700}
+.dash{color:#d0d0c8;font-size:14px}
 
 /* CTA */
-.cta-box{background:var(--navy);border-radius:16px;padding:48px 40px;text-align:center;color:white;position:relative;overflow:hidden}
+.cta-box{background:var(--navy);border-radius:16px;padding:48px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
 .cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.04)}
-.cta-box h2{font-family:'Instrument Serif',serif;font-size:30px;font-weight:400;color:white;margin-bottom:12px;position:relative}
-.cta-box p{font-size:14px;color:rgba(255,255,255,.6);max-width:420px;margin:0 auto 30px;line-height:1.75;position:relative}
-.cta-btn{display:inline-block;background:#c9b87a;color:#1a2b3e;font-weight:600;font-size:14px;padding:15px 38px;border-radius:9px;text-decoration:none;letter-spacing:.02em;position:relative;transition:background .2s,transform .1s}
+.cta-box h2{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;color:#fff;margin-bottom:10px;position:relative}
+.cta-box p{font-size:14px;color:rgba(255,255,255,.6);max-width:420px;margin:0 auto 28px;line-height:1.75;position:relative}
+.cta-btn{display:inline-flex;align-items:center;gap:9px;background:#c9b87a;color:#1a2b3e;font-weight:600;font-size:14px;padding:15px 34px;border-radius:9px;text-decoration:none;position:relative;transition:background .2s,transform .1s}
 .cta-btn:hover{background:#d4c48a;transform:translateY(-1px)}
-.cta-sub{margin-top:16px;font-size:12px;color:rgba(255,255,255,.3);position:relative}
-
-/* FOOTER */
+.cta-btn svg{width:17px;height:17px;fill:#1a2b3e;flex-shrink:0}
+.cta-sub{margin-top:14px;font-size:12px;color:rgba(255,255,255,.3);position:relative}
 .footer{margin-top:48px;text-align:center;font-size:12px;color:var(--ink-3);padding-top:24px;border-top:1px solid var(--border)}
 .footer strong{color:var(--ink-2)}
+.note{font-size:12px;color:var(--ink-3);margin-top:8px}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-inner">
-    <div class="header-eyebrow">Prepared by ValGrow Labs · Search Intelligence · Dubai</div>
-    <h1>Your customers are searching.<br><em>They just can't find you yet.</em></h1>
-    <p class="header-sub">A personalised proposal for Villacare Plus — showing where you stand today, what's holding you back, and exactly how we fix it.</p>
-    <div class="header-date">April 2026 · Confidential</div>
+  <div class="h-inner">
+    <div class="h-eyebrow">ValGrow Labs · Search Intelligence · Revised Proposal · April 2026</div>
+    <h1>Here are your gaps.<br><em>Here is how we fix them.</em></h1>
+    <p class="h-sub">Based on the SEO, GEO & AI Search audit you shared — every gap mapped to a specific fix, a clear 30/60/90-day timeline, and a cost. No guesswork.</p>
+    <div class="h-date">Prepared for Villacare Plus · Confidential</div>
   </div>
 </div>
 
 <div class="wrap">
 
-  <!-- INTRO -->
+  <!-- SCORES -->
   <div class="section">
-    <div class="intro-card">
-      <p>Villacare Plus has everything it needs to win — <strong>5.0 stars, 62 Google reviews, great services, and a growing brand</strong>. The gap is simple: when villa owners in Dubai search for what you offer, you don't appear. They find a competitor instead.</p>
-      <p>We checked five searches your customers make every month. <strong>Villacare Plus did not appear in a single one.</strong> That's not a reflection of your business quality — it's a visibility problem, and it's exactly what we solve.</p>
-    </div>
-  </div>
-
-  <!-- KEYWORD EVIDENCE -->
-  <div class="section">
-    <div class="section-label">Live search check — 5 keywords your customers use right now</div>
-    <div class="kw-table">
-      <div class="kw-head">
-        <span>What they search</span>
-        <span>Monthly searches</span>
-        <span>Competition</span>
-        <span>Villacare Plus</span>
+    <div class="slabel">Where you are today — and where we take you</div>
+    <div class="score-grid">
+      <div class="sc">
+        <div class="sc-label">SEO Score</div>
+        <div class="sc-val weak">42<span style="font-size:18px;color:var(--ink-3)">/100</span></div>
+        <div class="sc-sub">Weak — critical gaps</div>
       </div>
-      <div class="kw-row">
-        <div><div class="kw-name">villa maintenance Dubai</div><div class="kw-note">Core service — highest intent</div></div>
-        <div class="kw-vol">~1,200</div>
-        <div><span class="badge badge-amber">Medium</span></div>
-        <div class="vc-absent">✗ Not found</div>
+      <div class="sc">
+        <div class="sc-label">GEO Score</div>
+        <div class="sc-val poor">28<span style="font-size:18px;color:var(--ink-3)">/100</span></div>
+        <div class="sc-sub">Very weak — near invisible locally</div>
       </div>
-      <div class="kw-row">
-        <div><div class="kw-name">AC maintenance Dubai villa</div><div class="kw-note">Seasonal demand, page exists on site</div></div>
-        <div class="kw-vol">~880</div>
-        <div><span class="badge badge-amber">Medium</span></div>
-        <div class="vc-absent">✗ Not found</div>
-      </div>
-      <div class="kw-row">
-        <div><div class="kw-name">pergola installation Dubai</div><div class="kw-note">High-value upgrade — low competition</div></div>
-        <div class="kw-vol">~590</div>
-        <div><span class="badge badge-green">Low</span></div>
-        <div class="vc-absent">✗ Not found</div>
-      </div>
-      <div class="kw-row">
-        <div><div class="kw-name">annual villa maintenance contract UAE</div><div class="kw-note">Ready-to-sign buyer — low competition</div></div>
-        <div class="kw-vol">~320</div>
-        <div><span class="badge badge-green">Low</span></div>
-        <div class="vc-absent">✗ Not found</div>
-      </div>
-      <div class="kw-row">
-        <div><div class="kw-name">smart home installation Dubai villa</div><div class="kw-note">Premium NEST &amp; automation upsell</div></div>
-        <div class="kw-vol">~480</div>
-        <div><span class="badge badge-amber">Medium</span></div>
-        <div class="vc-absent">✗ Not found</div>
+      <div class="sc">
+        <div class="sc-label">AI Search Score</div>
+        <div class="sc-val poor">20<span style="font-size:18px;color:var(--ink-3)">/100</span></div>
+        <div class="sc-sub">Not AI-ready — no structured data</div>
       </div>
     </div>
-    <p class="small-note">Results verified via live Google search, April 2026. Monthly volumes are estimated averages.</p>
+
+    <div class="score-arrow">
+      <span>↓ &nbsp; After 90 days with ValGrow &nbsp; ↓</span>
+    </div>
+
+    <div class="score-grid">
+      <div class="sc after">
+        <div class="sc-label">SEO Score</div>
+        <div class="sc-val good">72<span style="font-size:18px;color:var(--green)">/100</span></div>
+        <div class="sc-sub">+30 pts — ranking for core keywords</div>
+      </div>
+      <div class="sc after">
+        <div class="sc-label">GEO Score</div>
+        <div class="sc-val good">65<span style="font-size:18px;color:var(--green)">/100</span></div>
+        <div class="sc-sub">+37 pts — visible in Map Pack & local</div>
+      </div>
+      <div class="sc after">
+        <div class="sc-label">AI Search Score</div>
+        <div class="sc-val good">68<span style="font-size:18px;color:var(--green)">/100</span></div>
+        <div class="sc-sub">+48 pts — cited in ChatGPT & Google AI</div>
+      </div>
+    </div>
+    <p class="note" style="text-align:right">* Projected after full gap remediation on Growth plan. Results may vary by market conditions.</p>
   </div>
 
-  <!-- PROBLEMS -->
+  <!-- GAPS -->
   <div class="section">
-    <div class="section-label">Why you're not showing up — what we found</div>
-    <div class="problems">
-      <div class="problem-card">
-        <div class="prob-icon red">🔍</div>
-        <div>
-          <div class="prob-title">No content for Google to rank</div>
-          <div class="prob-desc">Google ranks pages that answer what people are searching for. There are no blog posts, guides, or FAQ pages on your site. Competitors like GeeM Home and We Will Fix It publish content regularly — that's why they appear and Villacare Plus doesn't.</div>
-        </div>
+    <div class="slabel">Gap breakdown & fix plan</div>
+
+    <!-- SEO -->
+    <div class="gap-block">
+      <div class="gap-header">
+        <div class="gap-title">SEO Gaps</div>
+        <span class="crit-badge">Critical</span>
       </div>
-      <div class="problem-card">
-        <div class="prob-icon red">📄</div>
-        <div>
-          <div class="prob-title">Service pages aren't optimised for any keyword</div>
-          <div class="prob-desc">Your homepage title is simply "Home – Villacare Plus." No Dubai, no villas, no maintenance. Each service page needs to be written and structured around the exact words customers type — so Google knows to show it.</div>
+      <div class="gt">
+        <div class="gt-head"><span>Gap</span><span>Current</span><span>Priority</span><span>How we fix it</span></div>
+        <div class="gt-row">
+          <div class="gt-area">Title / Meta tags</div>
+          <div><span class="pill pr">30%</span></div>
+          <div><span class="pill pr">Critical</span></div>
+          <div class="gt-fix">Rewrite all page titles & meta descriptions with target keywords, Dubai location signals, and click-worthy copy. Done week 1.</div>
         </div>
-      </div>
-      <div class="problem-card">
-        <div class="prob-icon red">🔗</div>
-        <div>
-          <div class="prob-title">Three service pages are broken</div>
-          <div class="prob-desc">Pergola, LVT Flooring, and Electrical pages link to "#" — they go nowhere. Google cannot rank a page that doesn't properly exist, no matter how strong your actual service is.</div>
+        <div class="gt-row">
+          <div class="gt-area">Page speed</div>
+          <div><span class="pill pr">25%</span></div>
+          <div><span class="pill pr">Critical</span></div>
+          <div class="gt-fix">Image compression, lazy loading, caching setup, Core Web Vitals fixes. Target LCP under 2.5s.</div>
         </div>
-      </div>
-      <div class="problem-card">
-        <div class="prob-icon amber">🌐</div>
-        <div>
-          <div class="prob-title">No backlinks — Google doesn't fully trust your site yet</div>
-          <div class="prob-desc">Backlinks are other websites linking to yours — Google's main signal of credibility. Without them, even a well-optimised page struggles to rank. Your competitors have links from UAE property directories, home blogs, and media. You have none yet.</div>
+        <div class="gt-row">
+          <div class="gt-area">Blog / content</div>
+          <div><span class="pill pr">10%</span></div>
+          <div><span class="pill pr">Critical</span></div>
+          <div class="gt-fix">Publish keyword-targeted articles monthly — villa maintenance, AC, pergola, AMC contracts in Dubai.</div>
         </div>
-      </div>
-      <div class="problem-card">
-        <div class="prob-icon amber">⭐</div>
-        <div>
-          <div class="prob-title">62 five-star reviews that Google can't display</div>
-          <div class="prob-desc">Without review schema markup, your star rating doesn't appear in search results. Competitors with fewer reviews are showing theirs — and getting more clicks because of it. A quick technical fix changes this.</div>
+        <div class="gt-row">
+          <div class="gt-area">Backlinks</div>
+          <div><span class="pill pa">15%</span></div>
+          <div><span class="pill pa">High</span></div>
+          <div class="gt-fix">Outreach to UAE home & property publications, local directories (Dubizzle, YP UAE), community blogs.</div>
         </div>
-      </div>
-      <div class="problem-card">
-        <div class="prob-icon amber">🤖</div>
-        <div>
-          <div class="prob-title">Invisible to AI — ChatGPT and Google AI don't know you exist</div>
-          <div class="prob-desc">When someone asks ChatGPT "best villa maintenance company in Dubai," it recommends brands it has learned about from articles and citations online. Villacare Plus has none of that yet — so AI doesn't recommend you. This is the fastest-growing way people find services in 2026.</div>
+        <div class="gt-row">
+          <div class="gt-area">On-page copy</div>
+          <div><span class="pill pa">40%</span></div>
+          <div><span class="pill pa">High</span></div>
+          <div class="gt-fix">Rewrite all 8 service pages with keyword-mapped headings, intent-matched copy, and clear CTAs.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Internal linking</div>
+          <div><span class="pill pa">35%</span></div>
+          <div><span class="pill pa">High</span></div>
+          <div class="gt-fix">Build a logical link structure connecting service pages, blog posts, and location pages to pass authority.</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- OPPORTUNITY -->
-  <div class="section">
-    <div class="opportunity">
-      <h3>The market is ready — you just need to be visible in it.</h3>
-      <p>Dubai villa handovers in Q1 2026 hit their highest level since 2021 — up 27% year-on-year. Thousands of new villa owners in Arabian Ranches, DAMAC Lagoons, Emaar communities, and The Valley are actively searching for exactly what Villacare Plus offers. The demand is there. Right now, competitors are capturing it.</p>
-      <div class="opp-stats">
-        <div class="opp-stat">
-          <div class="opp-stat-val">18,000+</div>
-          <div class="opp-stat-label">New villa handovers in Dubai, Q1 2026 alone</div>
+    <!-- GEO -->
+    <div class="gap-block">
+      <div class="gap-header">
+        <div class="gap-title">GEO (Local) Gaps</div>
+        <span class="crit-badge">Critical</span>
+      </div>
+      <div class="gt">
+        <div class="gt-head"><span>Gap</span><span>Status</span><span>Impact</span><span>How we fix it</span></div>
+        <div class="gt-row">
+          <div class="gt-area">Google Business Profile</div>
+          <div><span class="pill pr">Missing</span></div>
+          <div class="gt-impact">No Map Pack ranking</div>
+          <div class="gt-fix">Set up, verify, and fully optimise GBP — categories, services, photos, posts, Q&A. Unlocks Map Pack visibility.</div>
         </div>
-        <div class="opp-stat">
-          <div class="opp-stat-val">3,470</div>
-          <div class="opp-stat-label">Monthly searches across your 5 core keywords</div>
+        <div class="gt-row">
+          <div class="gt-area">Service area pages (Dubai communities)</div>
+          <div><span class="pill pr">None</span></div>
+          <div class="gt-impact">Competitors rank for "villa maintenance JVC" etc.</div>
+          <div class="gt-fix">Build community landing pages for Arabian Ranches, DAMAC Lagoons, The Valley, JVC, Springs, Meadows and more.</div>
         </div>
-        <div class="opp-stat">
-          <div class="opp-stat-val">0</div>
-          <div class="opp-stat-label">Times Villacare Plus appeared in those searches</div>
+        <div class="gt-row">
+          <div class="gt-area">NAP consistency</div>
+          <div><span class="pill pa">Partial</span></div>
+          <div class="gt-impact">Phone shown, no address</div>
+          <div class="gt-fix">Add consistent Name, Address, Phone across website, GBP, and all directory listings.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Local citations (Dubizzle, YP UAE)</div>
+          <div><span class="pill pr">None found</span></div>
+          <div class="gt-impact">Zero trust signals</div>
+          <div class="gt-fix">Submit to 15+ UAE local directories — Dubizzle, YellowPages UAE, ServiceMarket, Bayut, and more.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Reviews (Google / Trustpilot)</div>
+          <div><span class="pill pa">62 Google ★5.0</span></div>
+          <div class="gt-impact">Competitors have 200–1000+ — strong base to build on</div>
+          <div class="gt-fix">Add review schema so your 5.0 stars display in Google search results. Then run a review generation sequence to push from 62 toward 200+.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Arabic language content</div>
+          <div><span class="pill pr">Absent</span></div>
+          <div class="gt-impact">Missing ~40% of UAE search volume</div>
+          <div class="gt-fix">Create Arabic versions of key service pages and GBP content to capture Arabic-language searches across UAE.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI SEARCH -->
+    <div class="gap-block">
+      <div class="gap-header">
+        <div class="gap-title">AI Search (GEO / AEO) Gaps</div>
+        <span class="crit-badge">Critical</span>
+      </div>
+      <div class="gt">
+        <div class="gt-head"><span>Gap</span><span>Status</span><span>Impact</span><span>How we fix it</span></div>
+        <div class="gt-row">
+          <div class="gt-area">Schema markup (LocalBusiness, FAQPage, Service)</div>
+          <div><span class="pill pr">None</span></div>
+          <div class="gt-impact">AI can't extract structured facts</div>
+          <div class="gt-fix">Implement full JSON-LD schema — LocalBusiness, Service, FAQPage, Review. The single biggest AI visibility lever.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">FAQ / Q&A content</div>
+          <div><span class="pill pr">None</span></div>
+          <div class="gt-impact">Not surfaced in ChatGPT / Perplexity</div>
+          <div class="gt-fix">Build FAQ pages targeting conversational queries: "who fixes AC in Dubai villas?", "best villa maintenance company Dubai".</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">E-E-A-T signals (About, credentials, team)</div>
+          <div><span class="pill pa">Minimal</span></div>
+          <div class="gt-impact">AI models rank trusted sources</div>
+          <div class="gt-fix">Expand About page — founding story, team credentials, operating since 2014, licences, client statistics.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Conversational landing pages</div>
+          <div><span class="pill pr">None</span></div>
+          <div class="gt-impact">Not answering "who fixes AC in Dubai villas?"</div>
+          <div class="gt-fix">Write long-form, question-structured service pages optimised for how AI pulls answers — direct, factual, structured.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Pricing / transparency content</div>
+          <div><span class="pill pr">No pricing info</span></div>
+          <div class="gt-impact">AI search users want direct answers</div>
+          <div class="gt-fix">Add pricing range pages (e.g. "Villa AC maintenance cost Dubai") — AI answers pricing questions from structured content.</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-area">Mentions in 3rd-party sites</div>
+          <div><span class="pill pr">None found</span></div>
+          <div class="gt-impact">AI citation sources don't reference the brand</div>
+          <div class="gt-fix">Outreach to UAE property blogs, ServiceMarket, Bayut editorial, and home lifestyle publications for brand citations.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- WHAT YOU WILL ACHIEVE -->
+  <!-- 30/60/90 TIMELINE -->
   <div class="section">
-    <div class="section-label">What you'll achieve with ValGrow</div>
-    <div class="achieve-grid">
-      <div class="achieve-card highlight">
-        <div class="achieve-icon">📞</div>
-        <div class="achieve-title">More inbound leads — without paying per click</div>
-        <div class="achieve-desc">When your pages rank on Google, people call you directly. No ad spend per enquiry. Every article and optimised page keeps working 24/7, bringing leads long after it's published.</div>
+    <div class="slabel">Delivery timeline — 30 / 60 / 90 days</div>
+    <div class="tl-grid">
+      <div class="tl-card">
+        <div class="tl-pill d30">Day 1–30</div>
+        <div class="tl-title">Fix the foundations</div>
+        <ul class="tl-list">
+          <li>Title tags & meta rewrites — all pages</li>
+          <li>All 8 service pages keyword-optimised</li>
+          <li>Page speed & Core Web Vitals fixes</li>
+          <li>Google Business Profile set up & verified</li>
+          <li>NAP consistency across site</li>
+          <li>Full schema markup implemented</li>
+          <li>Internal linking structure built</li>
+          <li>Review schema — stars in Google results</li>
+        </ul>
+        <div class="tl-outcome">Google re-crawls the site — indexation improves within weeks</div>
       </div>
-      <div class="achieve-card highlight">
-        <div class="achieve-icon">🏆</div>
-        <div class="achieve-title">Rank above competitors in Dubai</div>
-        <div class="achieve-desc">GeeM Home, We Will Fix It, Octopus — they rank because they have content and backlinks. We build both for you, systematically, until Villacare Plus sits above them for the searches that matter.</div>
+      <div class="tl-card">
+        <div class="tl-pill d60">Day 31–60</div>
+        <div class="tl-title">Build local visibility</div>
+        <ul class="tl-list">
+          <li>5 community landing pages live</li>
+          <li>15+ UAE local directory submissions</li>
+          <li>4 SEO blog articles published</li>
+          <li>3 FAQ / conversational pages live</li>
+          <li>Arabic service page versions launched</li>
+          <li>E-E-A-T About page expanded</li>
+          <li>Pricing transparency pages added</li>
+          <li>Backlink outreach campaign begins</li>
+        </ul>
+        <div class="tl-outcome">First keyword rankings appear — GBP starts showing in Map Pack</div>
       </div>
-      <div class="achieve-card highlight">
-        <div class="achieve-icon">🤖</div>
-        <div class="achieve-title">Get recommended by ChatGPT &amp; Google AI</div>
-        <div class="achieve-desc">AI search is how more people find services in 2026. We structure your content so that when someone asks an AI for villa maintenance in Dubai, Villacare Plus is the name that comes up.</div>
-      </div>
-      <div class="achieve-card highlight">
-        <div class="achieve-icon">📍</div>
-        <div class="achieve-title">Own your local villa communities</div>
-        <div class="achieve-desc">We build pages targeting Arabian Ranches, DAMAC Lagoons, The Valley, and other key areas. When homeowners in those communities search, they find Villacare Plus — not a generic competitor.</div>
-      </div>
-      <div class="achieve-card">
-        <div class="achieve-icon">⭐</div>
-        <div class="achieve-title">Your 5-star rating visible in search results</div>
-        <div class="achieve-desc">We add the technical markup that makes Google display your stars directly in search results — more visibility, more trust, more clicks from reviews you've already earned.</div>
-      </div>
-      <div class="achieve-card">
-        <div class="achieve-icon">📈</div>
-        <div class="achieve-title">Results that grow every month</div>
-        <div class="achieve-desc">Unlike ads that stop when you stop paying, SEO compounds. Every article, backlink, and optimised page adds to a growing asset that keeps delivering leads month after month.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- WHAT WE DO -->
-  <div class="section">
-    <div class="section-label">Exactly what we do for you</div>
-    <div class="service-blocks">
-      <div class="svc-row">
-        <div class="svc-num">1</div>
-        <div>
-          <div class="svc-title">Fix all technical SEO issues on your site</div>
-          <div class="svc-desc">We audit every page, repair broken links, complete the three missing service pages (Pergola, LVT, Electrical), rewrite your title tags and meta descriptions with the right keywords, add review schema so your stars show in Google results, and submit your sitemap. This is the foundation — it happens in week one.</div>
-          <div class="svc-tags"><span class="svc-tag">Broken page fix</span><span class="svc-tag">Title &amp; meta tags</span><span class="svc-tag">Review schema</span><span class="svc-tag">Sitemap &amp; indexing</span><span class="svc-tag">Site speed check</span></div>
-        </div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-num">2</div>
-        <div>
-          <div class="svc-title">Optimise every service page for target keywords</div>
-          <div class="svc-desc">Each of your 8 service pages gets rewritten and structured around the exact keywords customers search. AC Maintenance, Pergola, AMC Contracts, Smart Home, Landscaping — each becomes a dedicated landing page built to rank and convert visitors into enquiries.</div>
-          <div class="svc-tags"><span class="svc-tag">8 service pages</span><span class="svc-tag">Keyword mapping</span><span class="svc-tag">Heading structure</span><span class="svc-tag">Internal linking</span><span class="svc-tag">Call-to-action copy</span></div>
-        </div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-num">3</div>
-        <div>
-          <div class="svc-title">Build content that ranks and brings in leads</div>
-          <div class="svc-desc">We write helpful, search-optimised articles and FAQ pages — "how often should I service my villa AC in Dubai," "pergola cost Dubai 2026," "what's included in a villa AMC contract." These rank on Google, position you as the trusted expert, and keep delivering traffic month after month.</div>
-          <div class="svc-tags"><span class="svc-tag">Blog articles</span><span class="svc-tag">FAQ pages</span><span class="svc-tag">Community pages</span><span class="svc-tag">AI citation content</span></div>
-        </div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-num">4</div>
-        <div>
-          <div class="svc-title">Backlink outreach — build Google's trust in your site</div>
-          <div class="svc-desc">We reach out to UAE property blogs, home lifestyle sites, local directories, and relevant publications to earn quality links pointing to your site. Each backlink signals to Google that your site is credible — and pushes your pages higher in rankings. This is what your competitors have that you currently don't.</div>
-          <div class="svc-tags"><span class="svc-tag">UAE directory listings</span><span class="svc-tag">Property blog outreach</span><span class="svc-tag">Local citation building</span><span class="svc-tag">Authority signals</span></div>
-        </div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-num">5</div>
-        <div>
-          <div class="svc-title">Get cited by ChatGPT, Google AI &amp; Perplexity</div>
-          <div class="svc-desc">We structure your content and build your digital presence so that when someone asks an AI assistant for a villa maintenance company in Dubai, Villacare Plus is the answer they get — not a competitor.</div>
-          <div class="svc-tags"><span class="svc-tag">Entity optimisation</span><span class="svc-tag">Knowledge graph</span><span class="svc-tag">AI citation pages</span><span class="svc-tag">Schema markup</span></div>
-        </div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-num">6</div>
-        <div>
-          <div class="svc-title">Clear reporting — plain English, no jargon</div>
-          <div class="svc-desc">You receive a simple report every month showing which keywords you're ranking for, how many people visited your site from Google, where you appear in AI search, and what was done. You always know exactly what's happening and what it's delivering.</div>
-          <div class="svc-tags"><span class="svc-tag">Keyword rankings</span><span class="svc-tag">Traffic report</span><span class="svc-tag">AI visibility tracking</span><span class="svc-tag">Competitor comparison</span></div>
-        </div>
+      <div class="tl-card">
+        <div class="tl-pill d90">Day 61–90</div>
+        <div class="tl-title">Scale & get cited by AI</div>
+        <ul class="tl-list">
+          <li>5 more community landing pages</li>
+          <li>4 more SEO blog articles</li>
+          <li>3rd-party brand mention outreach</li>
+          <li>Earned citations on UAE property sites</li>
+          <li>Arabic GBP content live</li>
+          <li>Review generation sequence active</li>
+          <li>AI citation monitoring live</li>
+          <li>Full performance report & next plan</li>
+        </ul>
+        <div class="tl-outcome">ChatGPT & Google AI begin surfacing Villacare Plus in answers</div>
       </div>
     </div>
   </div>
 
   <!-- PACKAGES -->
   <div class="section">
-    <div class="section-label">Choose your plan</div>
-    <div class="packages">
+    <div class="slabel">Investment — choose your plan</div>
+    <div class="pkgs">
 
       <div class="pkg">
         <div class="pkg-name">Vector Starter</div>
         <div class="pkg-price">AED 1,800 <span>/ mo</span></div>
-        <div class="pkg-tagline">Fix the foundation and start appearing in Google and AI search.</div>
+        <div class="pkg-tag">Core SEO + GBP setup. Fix the critical foundations and start ranking.</div>
+        <div class="pkg-scores">
+          <span class="pkg-sc">SEO 42 → 62</span>
+          <span class="pkg-sc">GEO 28 → 48</span>
+        </div>
         <hr class="pkg-divider">
-        <div class="pkg-section-head">Technical SEO</div>
-        <ul class="pkg-features">
-          <li>Full technical audit &amp; all fixes</li>
+        <div class="pkg-sh">SEO</div>
+        <ul class="pf">
+          <li>Full technical audit & all fixes</li>
           <li>Broken pages repaired</li>
-          <li>Title, meta &amp; heading optimisation</li>
+          <li>Title, meta & heading optimisation</li>
           <li>Review schema — stars in Google</li>
-          <li>Sitemap &amp; indexing setup</li>
+          <li>Sitemap & indexing setup</li>
+          <li>Page speed fixes</li>
+          <li>Internal linking structure</li>
         </ul>
-        <div class="pkg-section-head">Service Pages</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">Service Pages & Keywords</div>
+        <ul class="pf">
           <li>5 service pages keyword-optimised</li>
-          <li>5 target keywords</li>
+          <li>5 target keywords (1 primary per page)</li>
+          <li>Top 5 highest-intent pages prioritised</li>
+          <li class="na">Community landing pages</li>
         </ul>
-        <div class="pkg-section-head">Content</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">Content</div>
+        <ul class="pf">
           <li>2 blog articles / month</li>
           <li>1 FAQ citation page / month</li>
         </ul>
-        <div class="pkg-section-head">Backlinks</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">Backlinks</div>
+        <ul class="pf">
           <li>Local directory submissions</li>
           <li class="na">Active backlink outreach</li>
         </ul>
-        <div class="pkg-section-head">AI Search</div>
-        <ul class="pkg-features">
-          <li>ChatGPT &amp; Google AI tracking</li>
-          <li>Knowledge graph entry</li>
-          <li class="na">Perplexity / Gemini</li>
+        <div class="pkg-sh">GEO / Local</div>
+        <ul class="pf">
+          <li>Google Business Profile setup</li>
+          <li>NAP consistency fix</li>
+          <li class="na">Arabic content</li>
         </ul>
-        <div class="pkg-section-head">Reporting</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">AI Search</div>
+        <ul class="pf">
+          <li>Full schema markup (all types)</li>
+          <li>ChatGPT & Google AI tracking</li>
+          <li>Knowledge graph entry</li>
+          <li class="na">FAQ / conversational pages</li>
+          <li class="na">3rd-party citation outreach</li>
+        </ul>
+        <div class="pkg-sh">Reporting</div>
+        <ul class="pf">
           <li>Monthly visibility report</li>
           <li class="na">Competitor tracking</li>
         </ul>
       </div>
 
-      <div class="pkg featured">
+      <div class="pkg feat">
         <div class="pkg-badge">Recommended</div>
         <div class="pkg-name">Vector Growth</div>
         <div class="pkg-price">AED 3,500 <span>/ mo</span></div>
-        <div class="pkg-tagline">Rank above competitors, earn backlinks, and appear in all major AI platforms.</div>
+        <div class="pkg-tag">Full gap fix across SEO, GEO & AI search. Complete 90-day transformation.</div>
+        <div class="pkg-scores">
+          <span class="pkg-sc">SEO 42 → 72</span>
+          <span class="pkg-sc">GEO 28 → 65</span>
+          <span class="pkg-sc">AI 20 → 68</span>
+        </div>
         <hr class="pkg-divider">
-        <div class="pkg-section-head">Technical SEO</div>
-        <ul class="pkg-features">
-          <li>Full technical audit &amp; all fixes</li>
+        <div class="pkg-sh">SEO</div>
+        <ul class="pf">
+          <li>Full technical audit & all fixes</li>
           <li>Broken pages repaired</li>
-          <li>Title, meta &amp; heading optimisation</li>
-          <li>Review schema — stars in Google</li>
+          <li>Title, meta & heading optimisation</li>
+          <li>Review schema — show 5.0 ★ in search results</li>
           <li>Ongoing quarterly audit</li>
+          <li>Page speed fixes</li>
+          <li>Internal linking structure</li>
+          <li>Active backlink outreach — 5 links / month</li>
+          <li>UAE property & home blogs</li>
         </ul>
-        <div class="pkg-section-head">Service Pages</div>
-        <ul class="pkg-features">
-          <li>All 8 service pages optimised</li>
-          <li>15 target keywords</li>
-          <li>Community landing pages</li>
+        <div class="pkg-sh">Service Pages & Keywords</div>
+        <ul class="pf">
+          <li>All 8 service pages keyword-optimised</li>
+          <li>15 target keywords total</li>
+          <li>1 primary + 1 secondary per service page (8 pages)</li>
+          <li>7 keywords for community landing pages</li>
+          <li>10 community landing pages</li>
         </ul>
-        <div class="pkg-section-head">Content</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">Content</div>
+        <ul class="pf">
           <li>5 blog articles / month</li>
           <li>3 FAQ citation pages / month</li>
         </ul>
-        <div class="pkg-section-head">Backlinks</div>
-        <ul class="pkg-features">
-          <li>Local directory submissions</li>
-          <li>Active outreach — 5 links / month</li>
-          <li>UAE property &amp; home blogs</li>
+        <div class="pkg-sh">GEO / Local</div>
+        <ul class="pf">
+          <li>Google Business Profile setup</li>
+          <li>NAP consistency fix</li>
+          <li>15+ UAE directory submissions</li>
+          <li>Arabic service page versions</li>
+          <li>Review schema — 5.0 ★ visible in Google</li>
+          <li>Review generation sequence (62 → 200+)</li>
         </ul>
-        <div class="pkg-section-head">AI Search</div>
-        <ul class="pkg-features">
-          <li>ChatGPT, Google AI &amp; Perplexity</li>
+        <div class="pkg-sh">AI Search</div>
+        <ul class="pf">
+          <li>Full schema markup (all types)</li>
+          <li>3 FAQ / conversational pages</li>
+          <li>E-E-A-T About page expansion</li>
+          <li>Pricing transparency pages</li>
+          <li>3rd-party citation outreach</li>
+          <li>ChatGPT, Google AI & Perplexity tracking</li>
           <li>Knowledge graph + cleanup</li>
-          <li>Entity &amp; citation optimisation</li>
+          <li>Entity & citation optimisation</li>
           <li class="na">Gemini / Claude tracking</li>
         </ul>
-        <div class="pkg-section-head">Reporting</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">Reporting</div>
+        <ul class="pf">
           <li>Bi-weekly visibility report</li>
           <li>1 competitor tracked</li>
           <li>Priority WhatsApp support</li>
@@ -456,44 +517,57 @@ body{font-family:'DM Sans',sans-serif;background:var(--surface-2);color:var(--in
       <div class="pkg">
         <div class="pkg-name">Vector Pro</div>
         <div class="pkg-price">AED 6,500 <span>/ mo</span></div>
-        <div class="pkg-tagline">Full dominance — Google, all AI platforms, authority &amp; digital PR.</div>
+        <div class="pkg-tag">Everything in Growth + digital PR, full AI domination, weekly strategy.</div>
+        <div class="pkg-scores">
+          <span class="pkg-sc">SEO 42 → 80+</span>
+          <span class="pkg-sc">GEO 28 → 75+</span>
+          <span class="pkg-sc">AI 20 → 78+</span>
+        </div>
         <hr class="pkg-divider">
-        <div class="pkg-section-head">Technical SEO</div>
-        <ul class="pkg-features">
-          <li>Full technical audit &amp; all fixes</li>
+        <div class="pkg-sh">SEO</div>
+        <ul class="pf">
+          <li>Full technical audit & all fixes</li>
           <li>Broken pages repaired</li>
-          <li>Title, meta &amp; heading optimisation</li>
+          <li>Title, meta & heading optimisation</li>
           <li>Review schema — stars in Google</li>
           <li>Ongoing monthly audit</li>
+          <li>Extended backlink & PR outreach — 15 links / month</li>
+          <li>Third-party citation network</li>
+          <li>Digital PR & earned media</li>
         </ul>
-        <div class="pkg-section-head">Service Pages</div>
-        <ul class="pkg-features">
-          <li>All 8 service pages optimised</li>
-          <li>30 target keywords</li>
-          <li>Community landing pages</li>
+        <div class="pkg-sh">Service Pages & Keywords</div>
+        <ul class="pf">
+          <li>All 8 service pages keyword-optimised</li>
+          <li>30 target keywords total</li>
+          <li>1 primary + 2 secondary per service page (24 keywords)</li>
+          <li>6 keywords for community pages & blog targets</li>
+          <li>Community landing pages (extended)</li>
         </ul>
-        <div class="pkg-section-head">Content</div>
-        <ul class="pkg-features">
+        <div class="pkg-sh">Content</div>
+        <ul class="pf">
           <li>10 blog articles / month</li>
           <li>5 FAQ citation pages / month</li>
         </ul>
-        <div class="pkg-section-head">Backlinks</div>
-        <ul class="pkg-features">
-          <li>Local directory submissions</li>
-          <li>Active outreach — 15 links / month</li>
-          <li>Third-party citation network</li>
-          <li>Digital PR &amp; earned media</li>
+        <div class="pkg-sh">GEO / Local</div>
+        <ul class="pf">
+          <li>Everything in Growth</li>
+          <li>Arabic GBP content</li>
+          <li>Arabic blog articles</li>
+          <li>Ongoing GBP management</li>
         </ul>
-        <div class="pkg-section-head">AI Search</div>
-        <ul class="pkg-features">
-          <li>All platforms incl. Gemini &amp; Claude</li>
+        <div class="pkg-sh">AI Search</div>
+        <ul class="pf">
+          <li>Everything in Growth</li>
+          <li>5 FAQ / conversational pages</li>
+          <li>All platforms incl. Gemini & Claude</li>
           <li>Full entity management</li>
           <li>Off-site authority signals</li>
+          <li>Knowledge graph management</li>
           <li>Community entity reinforcement</li>
         </ul>
-        <div class="pkg-section-head">Reporting</div>
-        <ul class="pkg-features">
-          <li>Weekly visibility report</li>
+        <div class="pkg-sh">Reporting</div>
+        <ul class="pf">
+          <li>Weekly report</li>
           <li>3 competitors tracked</li>
           <li>Dedicated account manager</li>
           <li>Monthly strategy call</li>
@@ -501,42 +575,41 @@ body{font-family:'DM Sans',sans-serif;background:var(--surface-2);color:var(--in
       </div>
 
     </div>
-    <p style="font-size:12px;color:var(--ink-3);margin-top:14px;text-align:center;">All plans billed monthly · Annual billing saves 20% · No lock-in on Starter plan</p>
-  </div>
 
-  <!-- WHY VALGROW -->
-  <div class="section">
-    <div class="section-label">Why ValGrow</div>
-    <div class="about-row">
-      <div class="about-icon">🎯</div>
-      <div>
-        <div class="about-title">We proved it on ourselves first</div>
-        <div class="about-desc">We ran our own Vector Protocol on a competitive search term and hit #2 on Google in 10 days — with 100% citation rate across ChatGPT, Perplexity, Claude, Grok, DeepSeek, and Manus AI. Same system, your business.</div>
+    <!-- COVERAGE TABLE -->
+    <div class="coverage">
+      <div class="cv-head">
+        <span>Gap fixed</span>
+        <span>Starter</span>
+        <span>Growth</span>
+        <span>Pro</span>
       </div>
+      <div class="cv-row"><div class="cv-gap">Title tags & meta fixes</div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Page speed improvements</div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">All 8 service pages optimised</div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Google Business Profile setup</div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Schema markup (all types)</div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Backlink outreach</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Community landing pages (10)</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Arabic content</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">FAQ / conversational AI pages</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">3rd-party citation outreach</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Digital PR & earned media</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
+      <div class="cv-row"><div class="cv-gap">Arabic GBP + blog content</div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="dash">—</span></div><div class="cv-cell"><span class="tick">✓</span></div></div>
     </div>
-    <div class="about-row">
-      <div class="about-icon">🇦🇪</div>
-      <div>
-        <div class="about-title">Built for the Dubai market</div>
-        <div class="about-desc">We understand how villa owners in Dubai search, which communities are growing fastest, and what it takes to rank in the UAE. This is not a generic approach — every strategy is specific to your location and your customers.</div>
-      </div>
-    </div>
-    <div class="about-row">
-      <div class="about-icon">📊</div>
-      <div>
-        <div class="about-title">Simple reporting — you always know what's happening</div>
-        <div class="about-desc">No jargon, no dashboards to decode. Every report shows clearly what keywords you're ranking for, how many people found you from Google, and where you appear in AI search. If something needs adjusting, you hear it from us first.</div>
-      </div>
-    </div>
+    <p class="note" style="text-align:center;margin-top:12px">All plans monthly · Annual billing saves 20% · No lock-in on Starter</p>
   </div>
 
   <!-- CTA -->
   <div class="section">
     <div class="cta-box">
-      <h2>Let's talk about Villacare Plus.</h2>
-      <p>Book a short call and we'll walk you through exactly what we'd do in the first 30 days — which keywords to target first, what to fix, and what to expect. No commitment needed.</p>
-      <a href="https://wa.me/971552848110?text=Hi%2C%20I%27d%20like%20to%20book%20a%20meeting%20about%20the%20Villacare%20Plus%20Search%20Intelligence%20proposal" class="cta-btn">Book a Meeting →</a>
-      <div class="cta-sub">WhatsApp · +971 55 284 8110 · ValGrow Labs, Dubai</div>
+      <h2>Ready to close the gaps?</h2>
+      <p>Book a call on WhatsApp and we'll walk you through the first 30 days in detail — what gets fixed first, what results to expect, and which plan fits best.</p>
+      <a href="https://wa.me/971552848110?text=Hi%2C%20I%27d%20like%20to%20book%20a%20meeting%20about%20the%20revised%20Villacare%20Plus%20Search%20Intelligence%20proposal" class="cta-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book a Meeting on WhatsApp
+      </a>
+      <div class="cta-sub">+971 55 284 8110 · ValGrow Labs · Dubai</div>
     </div>
   </div>
 
@@ -544,7 +617,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--surface-2);color:var(--in
     <strong>ValGrow Labs</strong> · Search Intelligence · Dubai, UAE<br>
     valgrowlabs.com · +971 55 284 8110
   </div>
-
 </div>
 </body>
 </html>
